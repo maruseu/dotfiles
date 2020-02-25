@@ -1,0 +1,65 @@
+! special
+*.cursorColor:  #ff9a7a
+
+*.foreground:   #eef1e7
+*.background:   #242327
+
+*.color0:       #242327
+*.color8:       #4E4B58
+*.color1:       #e2738f
+*.color9:       #f1b0c1
+*.color2:       #73E2C7
+*.color10:      #b0f1e1
+*.color3:       #c773e2
+*.color11:      #e1b0f1
+*.color4:       #738fe2
+*.color12:      #b0c1f1
+*.color5:       #e273c6
+*.color13:      #f1b0e1
+*.color6:       #73c6e2
+*.color14:      #b0e1f1
+*.color7:       #c3c9b0
+*.color15:      #eef1e7
+
+URxvt.cursorColor:  [90]#ff9a7a
+URxvt.foreground:   [80]#ffffff
+URxvt.background:   [80]#000000
+URxvt.color0:       [90]#000000
+URxvt.color8:       [90]#4E4B58
+URxvt.color1:       [90]#e2738f
+URxvt.color9:       [90]#f1b0c1
+URxvt.color2:       [90]#73E2C7
+URxvt.color10:      [90]#b0f1e1
+URxvt.color3:       [90]#c773e2
+URxvt.color11:      [90]#e1b0f1
+URxvt.color4:       [90]#738fe2
+URxvt.color12:      [90]#b0c1f1
+URxvt.color5:       [90]#e273c6
+URxvt.color13:      [90]#f1b0e1
+URxvt.color6:       [90]#73c6e2
+URxvt.color14:      [90]#b0e1f1
+URxvt.color7:       [90]#c3c9b0
+URxvt.color15:      [90]#ffffff
+
+URxvt.perl-ext-common: resize-font,
+
+URxvt.keysym.C-Down:   resize-font:smaller
+URxvt.keysym.C-Up:     resize-font:bigger
+
+URxvt.cursorUnderline: 1
+
+URxvt.scrollBar:       false
+!URxvt.skipBuiltinGlyphs:true
+URxvt.intensityStyles: false
+
+
+URxvt.letterSpace:    -1
+URxvt.font:            xft:MonteCarlo Fixed 12:size=12,xft:M+ 1p medium,xft:Inconsolata Nerd Font Mono
+URxvt.boldFont:        xft:MonteCarlo Fixed 12:bold:size=12,xft:M+ 1p heavy,xft:Inconsolata Nerd Font Mono
+
+URxvt*depth:           32
+URxvt.internalBorder:  12
+URxvt.keysym.Home:     \033[1~
+URxvt.keysym.End:      \033[4~
+URxvt.keysym.KP_Home:  \033[1~
+URxvt.keysym.KP_End:   \033[4~

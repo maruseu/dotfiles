@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =9
+let g:netrw_dirhist_9='/home/maruseu/.sway'
+let g:netrw_dirhist_8='/home/maruseu/.config/dunst'
+let g:netrw_dirhist_7='/home/maruseu/.vim'
+let g:netrw_dirhist_6='/home/maruseu/.config/openbox'
+let g:netrw_dirhist_5='/home/maruseu/cpptuto'
+let g:netrw_dirhist_4='/home/maruseu/.config/i3blocks'
+let g:netrw_dirhist_3='/home/maruseu/Scripts'
+let g:netrw_dirhist_2='/home/maruseu/.vim'
+let g:netrw_dirhist_1='/home/maruseu/WeirdFetch'
+let g:netrw_dirhist_0='/home/maruseu/cpptuto'

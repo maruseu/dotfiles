@@ -1,0 +1,25 @@
+#!/bin/sh
+
+#Notification
+dunst &
+
+#Hide cursor when inactive
+unclutter --timeout 5 --jitter 2 --ignore-scrolling -b &
+
+#Composition
+compton -b &
+
+#Daemons
+pgrep uvtd_ || ~/.scripts/uvtd_auto.sh &
+pgrep deviceNo || ~/.scripts/deviceNotify.sh &
+pgrep mpcNo || ~/.scripts/mpcNotify.sh &
+pgrep transmission-daemon || transmission-daemon -g .config/transmission &
+
+xsetwacom set "Wacom Intuos S Pen stylus" Area 0 0 $(xsetwacom get "Wacom Intuos S Pen stylus" Area | awk '{ print $3 }') $(expr $(expr $(xsetwacom get "Wacom Intuos S Pen stylus" Area | awk '{ print $3 }') \* $(xrandr | grep primary | awk '{ print $4 }' | sed "s/[x+]/ /g" | awk '{ print $2 }')) / $(xrandr | grep primary | awk '{ print $4 }' | sed "s/[x+]/ /g" | awk '{ print $1 }'))
+
+#Keyboard Tuning
+xset r rate 250 40 &
+
+sleep 1
+
+~/.fehbg
