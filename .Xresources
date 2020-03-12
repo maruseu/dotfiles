@@ -41,6 +41,7 @@ URxvt.color14:      [95]#b0e1f1
 URxvt.color7:       [95]#c3c9b0
 URxvt.color15:      [95]#ffffff
 
+st.font:            MonteCarlo Fixed 12:size=12
 URxvt.perl-ext-common: resize-font,
 
 URxvt.keysym.C-Down:   resize-font:smaller
@@ -63,3 +64,7 @@ URxvt.keysym.Home:     \033[1~
 URxvt.keysym.End:      \033[4~
 URxvt.keysym.KP_Home:  \033[1~
 URxvt.keysym.KP_End:   \033[4~
+
+UXTerm*renderFont: true
+UXTerm*faceName: MonteCarlo Fixed 12
+UXTerm*faceSize: 12

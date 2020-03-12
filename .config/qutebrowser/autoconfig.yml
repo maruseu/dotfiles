@@ -83,6 +83,8 @@ settings:
     global: '#242327'
   colors.messages.info.fg:
     global: white
+  colors.prompts.border:
+    global: 1px solid gray
   colors.prompts.fg:
     global: white
   colors.prompts.selected.bg:
@@ -166,40 +168,44 @@ settings:
   content.headers.user_agent:
     global: Mozilla/5.0 ({os_info}) AppleWebKit/{webkit_version} (KHTML, like Gecko)
       {qt_key}/{qt_version} {upstream_browser_key}/{upstream_browser_version} Safari/{webkit_version}
+  content.host_blocking.whitelist:
+    global:
+    - http://adf.ly/*
   content.notifications:
     https://fujitsuscannerstore.com: false
+    https://ouo.io: false
     https://www.reddit.com: false
     https://www.xvideos.com: false
   downloads.position:
     global: bottom
   fonts.completion.category:
-    global: 9pt 'Noto Sans CJK JP'
+    global: 8pt 'M+ 1p'
   fonts.completion.entry:
-    global: 9pt 'Noto Sans CJK JP'
+    global: 8pt 'M+ 1p'
   fonts.contextmenu:
-    global: 9pt 'Noto Sans CJK JP'
+    global: 8pt 'M+ 1p'
   fonts.debug_console:
-    global: 9pt 'Noto Sans CJK JP'
+    global: 8pt 'M+ 1p'
   fonts.default_family:
-    global: 9pt 'Noto Sans CJK JP'
+    global: 8pt 'M+ 1p'
   fonts.downloads:
-    global: 9pt 'Noto Sans CJK JP'
+    global: 8pt 'M+ 1p'
   fonts.hints:
-    global: 9pt 'Noto Sans CJK JP'
+    global: 8pt 'M+ 1p'
   fonts.keyhint:
-    global: 9pt 'Noto Sans CJK JP'
+    global: 8pt 'M+ 1p'
   fonts.messages.error:
-    global: 9pt 'Noto Sans CJK JP'
+    global: 8pt 'M+ 1p'
   fonts.messages.info:
-    global: 9pt 'Noto Sans CJK JP'
+    global: 8pt 'M+ 1p'
   fonts.messages.warning:
-    global: 9pt 'Noto Sans CJK JP'
+    global: 8pt 'M+ 1p'
   fonts.prompts:
-    global: 9pt 'Noto Sans CJK JP'
+    global: 8pt 'M+ 1p'
   fonts.statusbar:
-    global: 9pt 'Noto Sans CJK JP'
+    global: 8pt 'M+ 1p'
   fonts.tabs:
-    global: 9pt 'Noto Sans CJK JP'
+    global: 8pt 'M+ 1p'
   statusbar.padding:
     global:
       bottom: 2
@@ -224,7 +230,7 @@ settings:
     global: persist
   tabs.padding:
     global:
-      bottom: 4
+      bottom: 2
       left: 7
       right: 3
       top: 2
