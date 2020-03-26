@@ -1,0 +1,223 @@
+#!/bin/sh
+ps h -p $$ -o args='' | cut -f1 -d' '
+
+s1="   "; s2="   "
+cn="%{F#FFF}"; ci="%{F#98D4FF}"; cw="%{F#F0FB79}"; ce="%{F#F88377}"
+cs="%{F#FFF}";
+#cs="";
+
+echo $$ > /tmp/ram/dwmStat.pid 
+if which pactl; then
+	uVolume () {
+		volume=`pactl list sinks | grep -v 'Base Volume' | grep Volume | head -1 | awk '{print $5}' | tr -d "%"`
+		mute=`pactl list sinks | grep Mute | awk '{print $2}'`
+		if [ $mute = "no" ]; then
+			if [ "$volume" -eq 0 ]; then
+				volume="$cn$s1$volume%$s2"
+			elif [ "$volume" -gt 100 ]; then
+				volume="$ce$s1$volume%$s2"
+			elif [ "$volume" -ge 50 ]; then
+				volume="$cs$s1$volume%$s2"
+			elif [ "$volume" -gt 30 ]; then
+				volume="$cw$s1$volume%$s2"
+			elif [ "$volume" -gt 0 ]; then
+				volume="$cw$s1$volume%$s2"
+			fi
+		else
+			volume="$cn$s1"MUTE"$s2"
+		fi
+
+		updateRoot=1
+	}
+elif which amixer; then
+	uVolume () {
+		volume=`amixer get Master | grep 'Mono: Playback' | awk '{print $4}' | tr -d "[\[\]]" | tr -d '%'`
+		mute=`amixer get Master | grep "\[off\]"`
+		if [ -z $mute ]; then
+			if [ "$volume" -eq "0" ]; then
+				volume="$cn$s1$volume%$s2"
+			elif [ "$volume" -gt "100" ]; then
+				volume="$cw$s1$volume%$s2"
+			elif [ "$volume" -gt "20" ]; then
+				volume="$cs$s1$volume%$s2"
+			elif [ "$volume" -gt "0" ]; then
+				volume="$cw$s1$volume%$s2"
+			fi
+		else
+			volume="$cn$s1"MUTE"$s2"
+		fi
+
+		updateRoot=1
+	}
+else
+	volume="$cn"
+fi
+iVolume=2
+
+uDesktop () {
+	desktop="  [$(expr $(xprop -root _NET_CURRENT_DESKTOP | sed "s/.*= //") + 1)/$(xprop -root _NET_NUMBER_OF_DESKTOPS | sed "s/.*= //")]  "
+	updateRoot=1
+}
+iDesktop=1
+
+uAcpi () {
+#	acpi=`acpi -b | tr "[, ]" "\n" | grep "%" | tr -d "%"`
+	acpi=`bar.lua $(echo "$(acpi -b | tr "[, ]" "\n" | grep "%" | tr -d "%") / 100" | bc -l)`
+	if acpi --ac-adapter | grep 'on-line' > /dev/null; then
+		acpi="$ci ▕$acpi▏ "
+	else
+		acpi="$cs ▕$acpi▏ "
+	fi
+	updateRoot=1
+}
+iAcpi=4
+
+uIbus () {
+	ibus=`ibus engine | sed 's/:/ /g' | sed 's/-/ /g' | awk '{print toupper($2)}'`
+	ibus="$cs$s1$ibus$s2"
+	updateRoot=1
+}
+iIbus=10
+
+uMpd () {
+	mpd=`mpc current -f "$s1%artist% - %title%$s2"`
+	mpd="$ci$mpd"
+	if [ -z "$mpd" ]; then
+		mpd="$cn"
+	fi
+	updateRoot=1
+}
+iMpd=60
+
+uWifi () {
+	wifi=`grep wlp3s0 /proc/net/wireless | awk '{ print int($3 * 100 / 70) }'`
+	if [ $wifi -ge 80 ]; then
+	    wifi="$s1◎$s2"
+	elif [ $wifi -ge 60 ]; then
+	    wifi="$s1◎$s2"
+	elif [ $wifi -ge 40 ]; then
+	    wifi="$s1◯$s2"
+	elif [ $wifi -gt 0 ]; then
+	    wifi="$s1○$s2"
+	else
+	    wifi="$s1◌$s2"
+	fi
+	wifi="$cs$wifi"
+	updateRoot=1
+}
+iWifi=3
+
+uTemp () {
+	temp=`sensors | grep "Package id 0:" | sed -e "s/+//" -e "s/ /\n/g" | grep -v "+" | grep °C`
+	temp="$cs$s1$temp$s2"
+	updateRoot=1
+}
+iTemp=1
+
+uDate () {
+	date=`LC_ALL=en_US.UTF-8 date +'%a %d/%m %H:%M'`
+	date="$cs$s1$date$s2"
+	updateRoot=1
+}
+iDate=30
+
+uAnime () {
+	anime=`~/.scripts/animeChart2.lua panel`
+	anime="$cs$s1$anime$s2"
+	updateRoot=1
+}
+iAnime=1
+
+uBsp () {
+	bsp="$(bspc wm -g | sed 's/:/\n/g' | grep "[U,u,F,O,o]" | grep -v "T" | sed -e "s/^[Uu]/%{F#000}%{B#F88377} /" -e "s/^[OF]/%{F#000}%{B#FFF} /" -e "s/^[of]/%{F#FFF}%{B-} /g" | tr "\n" " ")%{B-}"
+}
+iBsp=1
+
+uDisks () {
+	disks=`df -h | grep /dev/sda1 | awk '{print toupper($1)" "$4}' | sed -e ':a' -e 'N' -e 's/\n/ \| /g' | sed 's/\/DEV\/SD//g'`
+	disks="$cs$s1$disks$s2"
+	updateRoot=1
+}
+iDisks=30
+
+trap "sVolume=1;" USR1
+trap "sMpd=1;"    USR2
+trap "sIbus=1;"   RTMIN
+trap "sDesktop=1;"   RTMAX
+
+sVolume=0
+sDesktop=0
+sAcpi=0
+sMpd=0
+sIbus=0
+sBsp=0
+
+
+uVolume
+uTemp
+uIbus
+uDesktop
+uAcpi
+uMpd
+uDate
+uWifi
+uDisks
+#uAnime
+
+while true; do
+	time=`date +%S`
+
+	if [ "$( expr $time % $iVolume )" -eq "0" ] || [ $sVolume -eq "1" ]; then
+		uVolume
+		sVolume=0
+	fi
+
+	if [ "$( expr $time % $iAcpi )" -eq "0" ]; then
+		uAcpi
+	fi
+
+	if [ "$( expr $time % $iIbus )" -eq "0" ] || [ $sIbus -eq "1" ]; then
+		uIbus
+		sIbus=0
+	fi
+
+	if [ "$( expr $time % $iMpd )" -eq "0" ] || [ $sMpd -eq "1" ]; then
+		uMpd
+		sMpd=0
+	fi
+
+	if [ "$( expr $time % $iWifi )" -eq "0" ]; then
+		uWifi
+	fi
+
+	if [ "$( expr $time % $iTemp )" -eq "0" ]; then
+		uTemp
+	fi
+
+	if [ "$( expr $time % $iDate )" -eq "0" ]; then
+		uDate
+	fi
+
+#	if [ "$( expr $time % $iAnime )" -eq "0" ]; then
+#		printf "anime.."
+#		uAnime
+#	fi
+
+	if [ "$( expr $time % $iDesktop )" -eq "0" ] || [ $sDesktop -eq "1" ]; then
+		uDesktop
+		sDesktop=0
+	fi
+
+	if [ "$( expr $time % $iDisks )" -eq "0" ]; then
+		uDisks
+	fi
+
+	if [ "$updateRoot" -eq "1" ]; then
+		line="%{l}%{A1:menuLemon.sh:}%{F#000}%{B#FFF}   Menu   %{F-}%{B-}%{A}$desktop%{r}$mpd%{A4:dvol inc 5:}%{A5:dvol dec 5:}$volume%{A}%{A}$disks$temp$wifi$acpi$ibus$date"
+		printf '%s' "%{S0}$line" \
+		"%{S1}$line"
+		updateRoot=0
+	fi
+
+	sleep 1
+done

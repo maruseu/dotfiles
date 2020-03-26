@@ -2,7 +2,7 @@
 
 #: Path adds {{{
 export PATH=$PATH:~/Documents/love/img/
-export PATH=$PATH:~/.scripts/
+export PATH=$PATH:~/.local/bin/
 #}}}
 
 export EDITOR=nvim
@@ -13,5 +13,6 @@ if [ $(tty) = '/dev/tty1' ]; then
 	#pfetchb
 	#~/.scripts/xwait.sh &
 	#sleep 1
-	exec startx -- -dpi 96 >/dev/null 2>/dev/null
+	exec startx -- -dpi 96
+# >/dev/null 2>/dev/null
 fi

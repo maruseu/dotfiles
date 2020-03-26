@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if test -z $1; then
+	/bin/neofetch 
+else
+	if [[ $TERM == 'rxvt-unicode-256color' ]]; then
+		/bin/neofetch --w3m $1
+	elif [[ $TERM == 'xterm-kitty' ]]; then
+		/bin/neofetch --kitty $1
+	else 
+		/bin/neofetch --chafa $1
+	fi
+fi

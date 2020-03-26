@@ -176,6 +176,8 @@ settings:
     https://ouo.io: false
     https://www.reddit.com: false
     https://www.xvideos.com: false
+  content.register_protocol_handler:
+    https://mail.google.com?extsrc=mailto&url=%25s: true
   downloads.position:
     global: bottom
   fonts.completion.category:

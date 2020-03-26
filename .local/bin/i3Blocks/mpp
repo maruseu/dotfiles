@@ -1,0 +1,12 @@
+#!/bin/sh
+if [ $button -eq 1 ];then
+	mpc -p 6601 prev > /dev/null
+	pkill -RTMIN+11 i3blocks
+fi
+current=`mpc -p 6601 current`
+if [ "$current" != "" ]; then
+	p1=`cat ~/Scripts/i3Blocks/pangoBlu`
+	c="&lt;-"
+	p2=`cat ~/Scripts/i3Blocks/pangoEnd`
+	echo $p1 $c $p2
+fi

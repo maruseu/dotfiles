@@ -1,0 +1,50 @@
+#!/bin/dash
+eval $(cat /etc/os-release)
+getUser () {
+	printf "[95;1m${USER}[97;0m@[95;1m$(cat /etc/hostname)[0m"
+}
+getMem () {
+	while IFS=':k '  read -r key val _; do
+		case $key in
+			MemTotal)
+				mem_used=$((mem_used + val))
+				mem_full=$val
+			;;
+			Shmem)
+				mem_used=$((mem_used + val))
+			;;
+			MemFree|Buffers|Cached|SReclaimable)
+				mem_used=$((mem_used - val))
+			;;
+		esac
+	done < /proc/meminfo
+	mem_used=$(echo "$mem_used / 1048576" | bc -l | sed "s/^\./0\./g" | awk '{print substr($1,0,4)}')
+	mem_full=$(echo "$mem_full / 1048576" | bc -l | sed "s/^\./0\./g" | awk '{print substr($1,0,4)}')
+	printf "[96;1mmem    [97;0m${mem_used}G / ${mem_full}G"
+}
+getOS () {
+	printf "[96;1mos     [0;97m$PRETTY_NAME"
+}                               
+getKernel () {                  
+	printf "[96;1mkernel [0;97m$(uname -r | sed -e 's/-.*//')"
+}                               
+getTime () {                    
+	printf "[96;1muptime [0;97m$(uptime | awk -F'( |,|:)+' '{print $6"d "$8"h "$9"m"}')"
+}                               
+getPkgs () {                    
+	printf "[96;1mpkgs   [0;97m$(pacman -Qq | wc -l)"
+}                               
+getHost () {                    
+	printf "[96;1mhost   [0;97m$(cat /sys/devices/virtual/dmi/id/product_version)"
+}
+ 
+cat << EOF
+[96m       /\         $(getUser)
+[96m      /  \        $(getOS)
+[96m     /\   \       $(getHost)
+[96m    /      \      $(getKernel)
+[96m   /   ,,   \     $(getTime)
+[96m  /   |  |  -\    $(getPkgs)
+[96m /_-''    ''-_\   $(getMem)
+
+EOF

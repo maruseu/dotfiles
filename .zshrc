@@ -8,15 +8,8 @@
 # #  {_}{_________}OOMER{______/ {_}{_}ELL{_| \_}un{____}ommands
 
 bindkey -e
-cat <<EOF
-[1;91m    /\      /\       [91m${USER}[97m@[91m${HOST}
-[91m   /  |___ |  \      [91mos       [97m$(grep PRETTY /etc/os-release | sed "s/PRETTY_NAME=//" | tr -d '"')
-[94m  :   _      _ :     [91mkernel   [97m${$(uname -r)%%-*}
-[94m  |  __     __ |     [91mpkgs     [97m$(pacman -Qq | wc -l)
-[94m  |       .    |     [91mwm       [97mdwm
-[94m         ^    _)     [91mshell    [97m${0}
 
-EOF
+tfetch
 
 #: Separator {{{
 SP='▓▒░'

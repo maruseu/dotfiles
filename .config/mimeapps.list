@@ -4,8 +4,12 @@ x-scheme-handler/http=org.qutebrowser.qutebrowser.desktop
 x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop
 x-scheme-handler/about=org.qutebrowser.qutebrowser.desktop
 x-scheme-handler/unknown=org.qutebrowser.qutebrowser.desktop
+video/mp4=mpv.desktop
 
 [Removed Associations]
 
 [Added Associations]
 image/png=userapp-feh --bg-fill-S4IFG0.desktop;
+image/jpeg=userapp-feh-H8ZJH0.desktop;
+application/x-java-archive=userapp-java-6WTZH0.desktop;
+video/mp4=mpv.desktop;

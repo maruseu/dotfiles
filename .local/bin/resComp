@@ -1,0 +1,2 @@
+#!/bin/sh
+pkill picom && sleep 0.1 && picom --xrender-sync-fence

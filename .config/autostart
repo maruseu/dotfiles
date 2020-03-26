@@ -1,30 +1,20 @@
 #!/bin/sh
-
 #Notification
 dunst &
 
 #Hide cursor when inactive
-unclutter --timeout 5 --jitter 2 --ignore-scrolling -b &
+unclutter --timeout 5 --jitter 2 --ignore-scrolling -b
 
 #Daemons
-pgrep uvtd_ || ~/.scripts/uvtd_auto.sh &
-pgrep deviceNo || ~/.scripts/deviceNotify.sh &
-pgrep mpcNo || ~/.scripts/mpcNotify.sh &
-pgrep transmission-daemon || transmission-daemon -g .config/transmission &
-
-xsetwacom set "Wacom Intuos S Pen stylus" Area 0 0 \
-	$(xsetwacom get "Wacom Intuos S Pen stylus" Area | awk '{ print $3 }')\
-    $(expr $(expr $(xsetwacom get "Wacom Intuos S Pen stylus" Area | awk '{ print $3 }') \* \
-	$(xrandr | grep primary | awk '{ print $4 }' | sed "s/[x+]/ /g" | awk '{ print $2 }')) / \
-	$(xrandr | grep primary | awk '{ print $4 }' | sed "s/[x+]/ /g" | awk '{ print $1 }')) &
-
-#Lock Screen
-xss-lock --transfer-sleep-lock -- lock.sh --nofork &
+#pgrep deviceNo || ~/.scripts/deviceNotify.sh &
+#pgrep mpcNo || ~/.scripts/mpcNotify.sh &
+pgrep urxvtd || urxvtd -q -o -f
+pgrep transmission-da || transmission-daemon -g .config/transmission
 
 #Keyboard Tuning
-xset r rate 250 40 &
+xset r rate 250 40
 
-~/.scripts/display_Extend.sh
+display_Extend.sh
 
 ##Composition
 #compton -b &

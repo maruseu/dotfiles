@@ -1,0 +1,4 @@
+#!/bin/dash
+xsetwacom --set "Wacom Intuos S Pen stylus" MapToOutput LVDS-1
+xsetwacom --set "Wacom Intuos S Pen stylus" RawSample 8
+xsetwacom set "Wacom Intuos S Pen stylus" Area 0 0 $(xsetwacom get "Wacom Intuos S Pen stylus" Area | awk '{ print $3 }') $(expr $(expr $(xsetwacom get "Wacom Intuos S Pen stylus" Area | awk '{ print $3 }') \* $(xrandr | grep primary | awk '{ print $4 }' | sed "s/[x+]/ /g" | awk '{ print $2}' )) / $(xrandr | grep primary | awk '{ print $4 }' | sed "s/[x+]/ /g" | awk '{ print $1}' ))
