@@ -1,0 +1,22 @@
+#!/bin/dash
+volume=`pactl list sinks | awk '/Volume/{print $5;exit}' | tr -d '%'`
+mute=`pactl list sinks | awk '/Mute/{print $2;exit}' | tr -d '%'`
+max_characters=11
+str=""
+i=0
+while [ $i -lt $max_characters ]; do 
+	math1=$((volume * max_characters))
+	int_lenght=$((math1 / 100))
+	if [ $i -lt "$int_lenght" ]; then str="$str""█"
+	elif [ $i -eq "$int_lenght" ] ; then 
+		case "$(((math1 % 100) / 10))" in
+			0) str="$str""　" ;; 1) str="$str""▏" ;; 2) str="$str""▎" ;; 3) str="$str""▍" ;;
+			4) str="$str""▌" ;; 5) str="$str""▌" ;; 6) str="$str""▋" ;; 7) str="$str""▊" ;;
+			8) str="$str""▉" ;; 9) str="$str""█" ;;
+		esac 
+	else str="$str""　"
+	fi
+	i=$((i+1))
+done
+[ $mute = "yes" ] && volume="Mute" || volume="$volume""%"
+dunstify -t 600 -r 5 "[""$str""]""  $volume"

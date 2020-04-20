@@ -17,8 +17,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 	call vundle#begin()
 		Plugin 'VundleVim/Vundle.vim'
 		Plugin 'tpope/vim-Fugitive'
-		Plugin 'vim-airline/vim-airline'
-		Plugin 'vim-airline/vim-airline-themes'
+		Plugin 'itchyny/lightline.vim'
 		Plugin 'junegunn/goyo.vim'
 		Plugin 'https://github.com/chrisbra/Colorizer'
 		Plugin 'dracula/vim', { 'name': 'dracula' }
@@ -45,6 +44,10 @@ else
 "Airline theme
 	let g:airline_theme='deus'
 endif
+set laststatus=2
+let g:lightline = {
+      \ 'colorscheme': 'one',
+      \ }
 
 "GVIM stuff
 	"GVIM remove menubar, toolbar and scrollbars

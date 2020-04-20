@@ -1,0 +1,26 @@
+#!/bin/bash
+lsusb | grep -v 'Linux Foundation' | awk '{ print substr($0, index($0,$7)) }' > /tmp/ram/devices
+
+while true; do
+
+	while [ "$devs" = "$b4devs" ]; do
+		devs=$(lsusb | awk '{ print substr($0, index($0,$7)) }')
+		sleep 0.5
+	done
+	b4devs="$devs"
+
+	lsusb | grep -v 'Linux Foundation' | awk '{ print substr($0, index($0,$7)) }' > /tmp/ram/devicesnew
+
+	DEVICECHANGE=`diff -d /tmp/ram/devices /tmp/ram/devicesnew | tail -n1 | sed "s/^[><] //"`
+	CONNECT=`diff -d /tmp/ram/devices /tmp/ram/devicesnew | tail -n1 | awk '{print \$1}'`
+
+	if [[ $CONNECT == ">" ]]
+	then
+		notify-send 'Device connected' "$DEVICECHANGE"
+	else
+		notify-send 'Device disconnected' "$DEVICECHANGE"
+	fi
+	
+	mv /tmp/ram/devicesnew /tmp/ram/devices
+
+done

@@ -2,9 +2,10 @@
 ps h -p $$ -o args='' | cut -f1 -d' '
 
 s1="   "; s2="   "
-cn="%{F#FFF}"; ci="%{F#98D4FF}"; cw="%{F#F0FB79}"; ce="%{F#F88377}"
-cs="%{F#FFF}";
-#cs="";
+cn="%{F#000}"; ci="$cn%{B#98D4FF}"; cw="$cn%{B#F0FB79}"; ce="$cn%{B#F88377}"
+cs="$cn%{B#FFF}";
+#cn="%{F#FFF}"; ci="%{F#98D4FF}"; cw="%{F#F0FB79}"; ce="%{F#F88377}"
+#cs="%{F#FFF}";
 
 echo $$ > /tmp/ram/dwmStat.pid 
 if which pactl; then
@@ -213,7 +214,7 @@ while true; do
 	fi
 
 	if [ "$updateRoot" -eq "1" ]; then
-		line="%{l}%{A1:menuLemon.sh:}%{F#000}%{B#FFF}   Menu   %{F-}%{B-}%{A}$desktop%{r}$mpd%{A4:dvol inc 5:}%{A5:dvol dec 5:}$volume%{A}%{A}$disks$temp$wifi$acpi$ibus$date"
+		line="%{l}%{A1:menuLemon.sh:}%{F#000}%{B#FFF}   Menu   %{F-}%{B-}%{A}$desktop%{r}$mpd%{A4:dvol inc 5:}%{A5:dvol dec 5:}$volume%{A}%{A}$disks$temp$wifi$acpi$ibus$date%{F-}%{B-}"
 		printf '%s' "%{S0}$line" \
 		"%{S1}$line"
 		updateRoot=0

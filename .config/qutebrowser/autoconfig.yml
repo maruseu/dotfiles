@@ -181,9 +181,9 @@ settings:
   downloads.position:
     global: bottom
   fonts.completion.category:
-    global: 8pt 'M+ 1p'
+    global: 10px 'PixelMplus10'
   fonts.completion.entry:
-    global: 8pt 'M+ 1p'
+    global: 10px 'PixelMplus10'
   fonts.contextmenu:
     global: 8pt 'M+ 1p'
   fonts.debug_console:
@@ -191,7 +191,7 @@ settings:
   fonts.default_family:
     global: 8pt 'M+ 1p'
   fonts.downloads:
-    global: 8pt 'M+ 1p'
+    global: 10px 'PixelMplus10'
   fonts.hints:
     global: 8pt 'M+ 1p'
   fonts.keyhint:
@@ -205,7 +205,7 @@ settings:
   fonts.prompts:
     global: 8pt 'M+ 1p'
   fonts.statusbar:
-    global: 8pt 'M+ 1p'
+    global: 10px 'PixelMplus10'
   fonts.tabs:
     global: 8pt 'M+ 1p'
   statusbar.padding:
@@ -239,7 +239,7 @@ settings:
   tabs.pinned.frozen:
     global: true
   tabs.title.format:
-    global: '{current_title}'
+    global: '{index} : {current_title}'
   tabs.title.format_pinned:
     global: null
   tabs.tooltips:

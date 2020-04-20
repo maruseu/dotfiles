@@ -1,49 +1,32 @@
 # vim:fileencoding=utf-8:ft=conf:foldmethod=marker
-# #
-# #      _________        ______  _
-# #     {_______  }      /  ____}{ }
-# #           /  /      {  |___  { }       ____     ____
-# #         /  /         \____ \ { }__    {    }   {  __}
-# #   _  /  /_____       ____|  }{ __ }   { |\ \   { |__
-# #  {_}{_________}OOMER{______/ {_}{_}ELL{_| \_}un{____}ommands
 
 bindkey -e
 
-tfetch
+#tfetch
 
-#: Separator {{{
-SP='▓▒░'
+setopt autocd
 
-if [[ -z $RSP ]]; then
-	RSP=`echo $SP | rev`
-fi
+#: Prompt {{{
+SP='▒'
+#SP='%{[1m%}>%{[22m%}'
+#RSP='%{[1m%}<%{[22m%}'
+[ -z $RSP ] && RSP=`echo $SP | rev`
 
-source ~/.zsh-git
-setopt PROMPT_SUBST
+export PS1="%(1j.%{[48;05;170m%} %j .)"\
+"%{[107;30m%} %n@%{[1;34m%}%m %{[22;7m%}$SP%{[0m%}"\
+"%{[44;30m%} %1~ %{[49;34m%}$SP %{[0m%}"\
+"%{]0;Le terminol%}"
 
-#: Colors {{{
-C1="%{[48;05;170m%}"
-C2="%{[107;30m%}"
-C3="%{[34;7m%}"
-C4="%{[34m%}"
-C5="%{[0m%}"
-C6="%{[7;46m%}"
-#}}}
-
-export PS1=$'%(1j.$C1 %j .)$C2 %n@%{[1m%}$C4%m $C3$SP %{[22;40m%}%1~ %{[34m%}$(prompt_git)%{[49;27m%}$SP %{[0m%}'
-export RPS1=$'%(0?.$C5$RSP%{[7m%} %?.$C5$RSP$C6 %?) %{[0m%}'
-export PS2=$'$C4%{[21;7m%} %_ %{[27;49m%}$SP%{[0m%} '
-export PS3=$'$C3 SELECT %{[49;27m%}$SP%{[0m%} '
+export RPS1="%(0?.%{[0m%}$RSP%{[7m%} %?.%{[0m%}$RSP%{[7;46m%} %?) %{[0m%}"
+export PS2="%{[34;21;7m%} %_ %{[27;49m%}$SP%{[0m%} "
+export PS3="%{[30;44m%} SELECT %{[30;7m%}$SP%{[0m%} "
 #}}}
 
 #: Aliases {{{
 alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../..'
-alias pkg='sudo pacman'
 alias ls='ls --color'
+alias la='ls -A'
+alias vim='nvim'
 alias l.='ls -d .*'
 #}}}
 

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+LANGUAGES=('xkb:br::por' 'xkb:us::eng')
+
+current_lang=`ibus engine`
+
+j=0
+for i in ${LANGUAGES[@]}; do
+	j=$((j+1))
+	[ "$i" = "$current_lang" ] && break
+done
+
+j=$((j % ${#LANGUAGES[@]}))
+
+ibus engine ${LANGUAGES[j]} 
+
+dunstify -r 2 "Layout set to ${LANGUAGES[j]#'xkb:'}"

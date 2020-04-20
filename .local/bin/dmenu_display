@@ -1,0 +1,8 @@
+#!/bin/sh
+asshole=`ls $HOME/.local/bin/display --color=none | sed 's/.sh//g' | dmenu "$@"`
+"$HOME/.local/bin/display/$asshole.sh"
+
+~/.fehbg
+
+pgrep compton && pkill compton && sleep 0.05 && compton -b --experimental-backends ||
+pgrep picom && pkill picom && sleep 0.05 && picom -b --experimental-backends

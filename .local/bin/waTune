@@ -1,0 +1,26 @@
+#!/bin/dash
+if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+	cat << EOF
+waTune - xsetwacom tuning utility
+
+Usage: waTune [display [smoothing]]
+
+Listing displays:
+xrandr | awk '/ connected / {print \$1}'
+
+EOF
+else
+
+	display="${1:-LVDS-1}"
+	smoothing="${2:-1}"
+
+	xsetwacom --set "Wacom Intuos S Pen stylus" MapToOutput $display
+	xsetwacom --set "Wacom Intuos S Pen stylus" RawSample 1
+	width=$(xsetwacom get "Wacom Intuos S Pen stylus" Area | awk '{print $3}')
+
+	displaySize=$(xrandr | grep $display | sed "s/primary //" | awk '{ print $3 }' | sed "s/[x+]/ /g")
+	height=$(expr $(expr "$width" \* $(echo $displaySize | awk '{ print $2}')) / $(echo $displaySize | awk '{ print $1}' ))
+
+	xsetwacom set "Wacom Intuos S Pen stylus" Area 0 0 $width $height && 
+		notify-send "Area set to $width $height\nTo ${display}\n$smoothing smoothing"
+fi

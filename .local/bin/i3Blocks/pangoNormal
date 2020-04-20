@@ -1,2 +1,0 @@
-col=`xgetres foreground`
-echo "<span foreground=\"$col\">"
